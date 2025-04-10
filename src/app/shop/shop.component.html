@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="row">
+
+        <section class="col-3">
+            <h6 class="text-danger my-3" style="font-weight: bold;">Sorting</h6>
+            <select class="form-select" aria-label="Default select example" (change)="OnSortChange($event)">
+                <option *ngFor="let item of sortOptions" [value]="item.value">{{item.name}}</option>
+            </select>
+
+            <h6 class="text-danger my-3" style="font-weight: bold;">Categories</h6>
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let item of categories" aria-current="true"
+                    (click)="OnCategorySelect(item.id)" [value]="item.id"
+                    [class.active]="item.id === shopParams.CategoryId" style="cursor:pointer;">{{item.name}}</li>
+            </ul>
+
+        </section>
+        <section class="col-9">
+            <div class="d-flex justify-content-between align-items-center pb-2 pt-4">
+
+                <app-pagin-header [totalCount]="products.length" [pageNumber]="shopParams.PageNumber"
+                    [pageSize]="shopParams.PageSize"></app-pagin-header>
+
+                <div class="col-9">
+                    <div class="input-group">
+                        <input (keyup.enter)="onProductSearch()" type="text" class="form-control mr-2" placeholder="Search Here" #searchInput
+                            aria-label="Recipient's username with two button addons">
+                        <button class="btn btn-outline-success" type="button" (click)="onProductSearch()">Search</button>
+                        <button class="btn btn-outline-warning" type="button" (click)="onReset()">Reset</button>
+                    </div>
+                </div>
+                <div class="form-inline mt-2">
+
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <div class="col" *ngFor="let item of products">
+                    <app-shop-item [product]=item></app-shop-item>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center mt-4" *ngIf="totalCount > 0">
+                <app-pager [pageSize]="shopParams.PageSize" [totalCount]="totalCount"
+                    (pageChanged)="onPageChanged($event)"></app-pager>
+            </div>
+
+        </section>
+    </div>
+</div>
