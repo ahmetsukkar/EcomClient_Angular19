@@ -41,6 +41,10 @@ export class ShopService {
       }))
   }
 
+  getProductById(id: string) {
+    return this.http.get<IProduct>(this.baseURL + 'Products/get-product-by-id/' + id);
+  }
+
   getCategories() {
     return this.http.get<Icategory[]>(this.baseURL + 'Categories/get-all-categories');
   }

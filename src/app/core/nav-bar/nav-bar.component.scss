@@ -11,3 +11,12 @@
     top: -15px;
     right: 15px;
 }   
+
+.nav-link{
+    color: deepskyblue;
+
+    &.active{
+        color: red;
+        font-weight: bold;
+    }
+}

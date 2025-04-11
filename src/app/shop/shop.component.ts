@@ -16,7 +16,6 @@ import { PagerComponent } from "../shared/components/pager/pager.component";
   styleUrl: './shop.component.scss'
 })
 export class ShopComponent {
-
   @ViewChild('searchInput') searchInput: ElementRef;
   products: IProduct[];
   categories: Icategory[];
@@ -42,7 +41,6 @@ export class ShopComponent {
 
   getProdcuts() {
     this.shopService.getProduct(this.shopParams).subscribe(response => {
-      console.log(response);
       this.products = response.data;
       this.totalCount = response.count;
     });
@@ -52,7 +50,6 @@ export class ShopComponent {
     this.shopService.getCategories().subscribe(response => {
       this.categories = [{ id: null, name: 'All', description: 'All' }, ...response];
       //this.categories.unshift({ id: null, name: 'All', description: 'All' });
-      console.log(this.categories);
     });
   }
 
