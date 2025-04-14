@@ -1,12 +1,23 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { errorInterceptor } from './core/Interceptors/error.interceptor';
+import { Toast, ToastrModule } from 'ngx-toastr';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes),
-    provideHttpClient()]
+    provideHttpClient(),
+    provideHttpClient(withInterceptors([errorInterceptor])),
+    provideAnimations(),
+    importProvidersFrom(ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      countDuplicates: true,
+      preventDuplicates: true,
+    }))
+  ]
 };
