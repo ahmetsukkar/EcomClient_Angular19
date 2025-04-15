@@ -1,0 +1,25 @@
+<div *ngIf="(breadcrumb$ | async) as breadcrumbs">
+    <section class="pb-6" style="background-color: aliceblue;"
+    *ngIf="breadcrumbs.length > 0 && breadcrumbs[breadcrumbs.length -1].label !== 'Home'">
+        <div class="container">
+            <div class="row">
+                <div class="d-flex align-items-center">
+                    <div class="col-9">
+                        <h1>{{breadcrumbs.length > 0 && breadcrumbs[breadcrumbs.length -1].label | uppercase}}</h1>
+                    </div>
+                    <div class="col-3">
+                        <!-- breadcrumbs -->
+                        <!--<nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Library</li>
+                        </ol>
+                    </nav> -->
+
+                        <xng-breadcrumb></xng-breadcrumb>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

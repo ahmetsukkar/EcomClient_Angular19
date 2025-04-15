@@ -1,7 +1,7 @@
 <div class="container">
-    <div class="row">
+    <div class="row" *ngIf="categories">
 
-        <section class="col-3">
+        <section class="col-3" *ngIf="categories">
             <h6 class="text-danger my-3" style="font-weight: bold;">Sorting</h6>
             <select class="form-select" aria-label="Default select example" (change)="OnSortChange($event)">
                 <option *ngFor="let item of sortOptions" [value]="item.value">{{item.name}}</option>
@@ -21,7 +21,7 @@
                 <app-pagin-header [totalCount]="products.length" [pageNumber]="shopParams.PageNumber"
                     [pageSize]="shopParams.PageSize"></app-pagin-header>
 
-                <div class="col-9">
+                <div class="col-9" *ngIf="products">
                     <div class="input-group">
                         <input (keyup)="onProductSearch()" type="text" class="form-control mr-2" placeholder="Search Here" #searchInput
                             aria-label="Recipient's username with two button addons">

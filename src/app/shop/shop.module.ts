@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ShopRoutingModule } from './shop-routing.module';
+import { BreadcrumbComponent } from 'xng-breadcrumb';
 
 
 
@@ -8,7 +9,8 @@ import { ShopRoutingModule } from './shop-routing.module';
   declarations: [],
   imports: [
     CommonModule,
-    ShopRoutingModule
+    ShopRoutingModule,
+    BreadcrumbComponent
   ]
 })
 export class ShopModule { }
