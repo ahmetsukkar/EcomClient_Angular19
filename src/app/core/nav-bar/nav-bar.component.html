@@ -1,29 +1,26 @@
+<header
+    class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <div class="col-md-3 mb-2 mb-md-0">
+        <a routerLink="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+            <img src="assets/OnlieShopLogo.png" alt="Logo" height="100" class="me-2">
+        </a>
+    </div>
 
-    <header
-        class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-        <div class="col-md-3 mb-2 mb-md-0">
-            <a routerLink="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-                <img src="assets/OnlieShopLogo.png" alt="Logo" height="100" class="me-2">
-            </a>
-        </div>
-
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li><a class="nav-link px-2" 
-                [routerLink]="['/']" 
-                routerLinkActive="active"
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a class="nav-link px-2" [routerLink]="['/']" routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact:true}">Home</a></li>
-            <li><a class="nav-link px-2" routerLink="/shop"  routerLinkActive="active">Shop</a></li>
-            <li><a class="nav-link px-2" routerLink="/contact"  routerLinkActive="active">Contact</a></li>
-            <li><a class="nav-link px-2" routerLink="/test-error" routerLinkActive="active">Error</a></li>
-            <li><a class="nav-link px-2">About</a></li>
-        </ul>
+        <li><a class="nav-link px-2" routerLink="/shop" routerLinkActive="active">Shop</a></li>
+        <li><a class="nav-link px-2" routerLink="/contact" routerLinkActive="active">Contact</a></li>
+        <li><a class="nav-link px-2" routerLink="/test-error" routerLinkActive="active">Error</a></li>
+        <li><a class="nav-link px-2">About</a></li>
+    </ul>
 
-        <div class="d-flex flex-wrap align-items-center">
-            <a class="position-relative" href=""> 
-                <i class="fa fa-shopping-cart text-dark fa-2x" style="margin-right: 30px;"></i>
-                <div class="card-number">3</div>
-            </a>
-            <a class="btn btn-outline-danger me-2">Login</a>
-            <a class="btn btn-primary">Sign-up</a>
-        </div>
-    </header>
+    <div class="d-flex flex-wrap align-items-center">
+        <a routerLink="/basket" class="position-relative" href="">
+            <i class="fa fa-shopping-cart text-dark fa-2x" style="margin-right: 30px;"></i>
+            <div class="card-number" *ngIf="(basket$ | async) as basket">{{basket.basketItems.length}}</div>
+        </a>
+        <a class="btn btn-outline-danger me-2">Login</a>
+        <a class="btn btn-primary">Sign-up</a>
+    </div>
+</header>

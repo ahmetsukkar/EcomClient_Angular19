@@ -7,8 +7,8 @@
             <span>{{product.price | currency}}</span>
             <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                    <button routerLink="/shop/{{product.id}}" routerLinkActive="router-link-active"  type="button" class="btn btn-outline-danger fa fa-shopping-cart">View</button>
-                    <button type="button" class="btn btn-outline-primary">Edit</button>
+                    <button (click)="addItemToBasket()" type="button" class="btn btn-outline-danger fa fa-shopping-cart"></button>
+                    <button routerLink="/shop/{{product.id}}" routerLinkActive="router-link-active"  type="button" class="btn btn-outline-primary">View</button>
                 </div>
             </div>
         </div>

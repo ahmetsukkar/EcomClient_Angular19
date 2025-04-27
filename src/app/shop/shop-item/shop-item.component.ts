@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { IProduct } from '../../shared/Model/Product';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { BasketService } from '../../basket/basket.service';
 
 @Component({
   selector: 'app-shop-item',
@@ -12,4 +13,11 @@ import { RouterModule } from '@angular/router';
 export class ShopItemComponent {
 
   @Input() product: IProduct;
+
+  constructor(private basketService: BasketService) { }
+  
+  addItemToBasket() {
+    this.basketService.addItemToBasket(this.product);
+  }
+
 }
