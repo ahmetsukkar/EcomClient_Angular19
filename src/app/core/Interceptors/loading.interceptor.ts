@@ -6,7 +6,9 @@ import { delay, finalize } from 'rxjs';
 export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
 
   const loaderService = inject(LoaderService);
-  loaderService.loader()
+
+  if (!req.url.includes('check-email-exist'))
+    loaderService.loader()
 
   return next(req).pipe(
     delay(1000),
