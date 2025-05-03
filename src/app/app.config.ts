@@ -7,12 +7,13 @@ import { errorInterceptor } from './core/Interceptors/error.interceptor';
 import { Toast, ToastrModule } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { loadingInterceptor } from './core/Interceptors/loading.interceptor';
+import { jwtInterceptor } from './core/Interceptors/jwt.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([errorInterceptor, loadingInterceptor])),
+    provideHttpClient(withInterceptors([errorInterceptor, loadingInterceptor, jwtInterceptor])),
     provideAnimations(),
     importProvidersFrom(ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',

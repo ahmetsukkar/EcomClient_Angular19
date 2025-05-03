@@ -1,0 +1,69 @@
+<div class="container mt-5">
+    <!-- Back to Orders -->
+    <div class="mb-3">
+        <a routerLink="/orders" class="btn btn-outline-secondary">
+            ← Back to Orders
+        </a>
+    </div>
+
+    <!-- Order Detail Card -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-light border-bottom">
+            <h4 class="mb-0">Order #{{ order.id | slice:0:8 }}</h4>
+            <small class="text-muted">Placed on {{ order?.orderDate | date: 'medium' }}</small>
+        </div>
+
+        <div class="card-body">
+
+            <!-- Status & Delivery -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h6>Status</h6>
+                    <span [ngClass]="{
+              'badge bg-success': order?.orderStatus === 'Completed',
+              'badge bg-warning text-dark': order?.orderStatus === 'Pending',
+              'badge bg-danger': order?.orderStatus === 'Cancelled',
+              'badge bg-secondary': order?.orderStatus !== 'Completed' && order?.orderStatus !== 'Pending' && order?.orderStatus !== 'Cancelled'
+            }">
+                        {{ order?.orderStatus }}
+                    </span>
+                </div>
+                <div class="col-md-6">
+                    <h6>Delivery Method</h6>
+                    <p class="mb-0">
+                        {{ order?.deliveryMethod }}<br>
+                        Shipping: {{ order?.shippingPrice | currency }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Shipping Address -->
+            <div class="mb-4">
+                <h6>Shipping Address</h6>
+                <p class="mb-0">
+                    {{ order?.shipToAddress.firstName }} {{ order?.shipToAddress.lastName }}<br>
+                    {{ order?.shipToAddress.street }}<br>
+                    {{ order?.shipToAddress.city }}, {{ order?.shipToAddress.state }} {{ order?.shipToAddress.zipCode }}
+                </p>
+            </div>
+
+            <!-- Items List -->
+            <h6>Items</h6>
+            <div *ngFor="let item of order?.orderItems" class="d-flex align-items-center border-bottom py-3">
+                <img [src]="item.pictureUrl" class="img-thumbnail me-3"
+                    style="width: 80px; height: 80px; object-fit: cover;">
+                <div>
+                    <h6 class="mb-1">{{ item.productItemName }}</h6>
+                    <small>Qty: {{ item.quantity }} × {{ item.price | currency }}</small>
+                </div>
+            </div>
+
+            <!-- Totals -->
+            <hr>
+            <div class="text-end">
+                <p class="mb-1">Subtotal: {{ order?.subTotal | currency }}</p>
+                <h5>Total: <strong>{{ order?.total | currency }}</strong></h5>
+            </div>
+        </div>
+    </div>
+</div>

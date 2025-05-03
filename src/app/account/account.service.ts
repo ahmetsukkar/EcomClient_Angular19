@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, map, of, ReplaySubject } from 'rxjs';
 import { IUser } from '../shared/Model/user';
 import { Router } from '@angular/router';
+import { IAddress } from '../shared/Model/address';
 
 @Injectable({
   providedIn: 'root'
@@ -71,4 +72,13 @@ export class AccountService {
   checkEmailExists(email: string) {
     return this.http.get(this._baseUrl + 'check-email-exist?email=' + email);
   }
+
+  getUserAddress() {
+    return this.http.get<IAddress>(this._baseUrl + 'get-user-address');
+  }
+
+  updateUserAddress(address: IAddress) {
+    return this.http.put<IAddress>(this._baseUrl + 'update-user-address', address)
+  }
+
 }

@@ -1,0 +1,95 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-hover text-white">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Order</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of orders" class="align-middle" [routerLink]="['/orders', item.id]"
+                        style="cursor: pointer;">
+
+                        <!-- Display order as #001, #002, etc. (if you have index, use it), else shorten GUID -->
+                        <th scope="row">
+                            #{{ item.id | slice:0:8 }}
+                        </th>
+                        <!-- <th scope="row">#{{ i + 1 }}</th> -->
+
+                        <td>{{ item.orderDate | date: 'mediumDate' }}</td>
+
+                        <td>{{ item.total | currency }}</td>
+
+                        <!-- Status badge (custom pipe optional) -->
+                        <td>
+                            <span [ngClass]="{
+                  'badge bg-success': item.orderStatus === 'Completed',
+                  'badge bg-warning text-dark': item.orderStatus === 'Pending',
+                  'badge bg-danger': item.orderStatus === 'Cancelled',
+                  'badge bg-secondary': item.orderStatus !== 'Completed' && item.orderStatus !== 'Pending' && item.orderStatus !== 'Cancelled'
+                }">
+                                {{ item.orderStatus }}
+                            </span>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- <div class="container mt-5">
+    <h2 class="mb-4 text-white">My Orders</h2>
+    <div *ngFor="let order of orders" class="card mb-4 shadow">
+      <div class="card-header bg-dark text-white">
+        <div class="d-flex justify-content-between">
+          <div><strong>Order ID:</strong> {{ order.id }}</div>
+          <div><strong>Status:</strong> <span class="badge bg-warning text-dark">{{ order.orderStatus }}</span></div>
+        </div>
+        <div><small>Placed on: {{ order.orderDate | date:'medium' }}</small></div>
+      </div>
+  
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <h5>Shipping Address</h5>
+            <p class="mb-0">
+              {{ order.shipToAddress.firstName }} {{ order.shipToAddress.lastName }}<br>
+              {{ order.shipToAddress.street }}<br>
+              {{ order.shipToAddress.city }}, {{ order.shipToAddress.state }} {{ order.shipToAddress.zipCode }}
+            </p>
+          </div>
+          <div class="col-md-6">
+            <h5>Delivery</h5>
+            <p class="mb-0">
+              Method: {{ order.deliveryMethod }}<br>
+              Shipping Cost: {{ order.shippingPrice | currency }}
+            </p>
+          </div>
+        </div>
+  
+        <h5>Items</h5>
+        <div *ngFor="let item of order.orderItems" class="d-flex mb-3 align-items-center">
+          <img [src]="item.pictureUrl" class="img-thumbnail me-3" style="width: 80px; height: 80px; object-fit: cover;">
+          <div>
+            <h6 class="mb-0">{{ item.productItemName }}</h6>
+            <small>Qty: {{ item.quantity }} × {{ item.price | currency }}</small>
+          </div>
+        </div>
+  
+        <hr>
+        <div class="text-end">
+          <h5>Subtotal: {{ order.subTotal | currency }}</h5>
+          <h4>Total: <strong>{{ order.total | currency }}</strong></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+   -->
