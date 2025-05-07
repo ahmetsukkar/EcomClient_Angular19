@@ -5,6 +5,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AccountService } from '../../account/account.service';
 import { ToastrService } from 'ngx-toastr';
+import { IAddress } from '../../shared/Model/address';
 
 @Component({
   selector: 'app-checkout-address',
@@ -19,10 +20,6 @@ export class CheckoutAddressComponent {
 
 
   ngOnInit() {
-    // console.log("checkoutForm");
-    // console.log(this.checkoutForm);
-    console.log("AddressForm", this.checkoutForm.get('address'));
-    console.log("FirstName", this.checkoutForm.get('address.addressForm.firstName'));
   }
 
   get _firstName() {
@@ -51,10 +48,11 @@ export class CheckoutAddressComponent {
   
 
   saveUserAddress() {
-    var address = this.checkoutForm.get('addressForm').value;
-    this.accountService.updateUserAddress(address).subscribe({
-      next: (response) => {
+    var _currentAddress = this.checkoutForm.get('addressForm').value;
+    this.accountService.updateUserAddress(_currentAddress).subscribe({
+      next: (address:IAddress) => {
         this.toaster.success('Address updated successfully!');
+        this.checkoutForm.get('addressForm').reset(address); // Reset the form with the updated address
       },
       error: (error) => {
         this.toaster.error('Error updating address!', error);

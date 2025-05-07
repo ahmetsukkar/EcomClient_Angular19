@@ -22,10 +22,24 @@ export class BasketService {
   private basketTotalSource = new BehaviorSubject<IBasketTotals>(null);
   basketTotal$ = this.basketTotalSource.asObservable();
 
+  createPaymentIntent() {
+    return this.http.post(environment.apiUrl + 'Payments/' + this.getCurrentBasketValue().id,{})
+      .pipe(
+        map((basket: IBasket) => {
+          this.basketSource.next(basket);
+          console.log(this.getCurrentBasketValue());
+        })
+      )
+  }
 
-  setShippingPrice(delivery:IDeliveryMethod) {
-    this.shipping = delivery.price;
+
+  setShippingPrice(deliveryMethod:IDeliveryMethod) {
+    this.shipping = deliveryMethod.price;
+    const basket = this.getCurrentBasketValue();
+    basket.deliveryMethodId = deliveryMethod.id;
+    basket.shippingPrice = deliveryMethod.price;
     this.calculateTotals();
+    this.setBasket(basket);
   }
 
 
@@ -97,8 +111,9 @@ export class BasketService {
         map((basketResult: IBasket) => {
           console.log('getBasket service called:');
           this.basketSource.next(basketResult);
+          this.shipping = basketResult.shippingPrice;
           this.calculateTotals();
-          console.log(this.getCurrentBasketValue());
+          //console.log(this.getCurrentBasketValue());
         })
       )
   }

@@ -7,8 +7,14 @@ export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
 
   const loaderService = inject(LoaderService);
 
-  if (!req.url.includes('check-email-exist'))
-    loaderService.loader()
+  if (req.method === 'POST' && req.url.includes('create-order')) 
+    return next(req);  
+
+  if (req.url.includes('check-email-exist')) 
+    return next(req)
+  
+
+  loaderService.loader()
 
   return next(req).pipe(
     delay(1000),
