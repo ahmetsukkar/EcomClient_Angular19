@@ -1,5 +1,8 @@
 # 🛒 EcomClient Angular
 
+**Live Frontend**: [https://ecomclient.runasp.net](https://ecomclient.runasp.net)  
+**Backend API**: [Swagger UI](https://ecomapp.runasp.net/swagger/index.html)
+
 **EcomClient Angular** is the frontend application for the [EcommerceAPI](https://github.com/ahmetsukkar/EcommerceAPI-ASP.NET-Core-8), built with the latest Angular 19 and designed to deliver a fast, responsive, and user-friendly e-commerce experience.
 
 ## ⚙️ Technologies Used
