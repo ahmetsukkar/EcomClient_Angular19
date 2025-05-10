@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { IPagination } from '../shared/Model/pagination';
 import { Icategory } from '../shared/Model/category';
 import { ShopParams } from '../shared/Model/shopParams';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import { ShopParams } from '../shared/Model/shopParams';
 export class ShopService {
 
 
-  baseURL = 'https://localhost:44390/api/';
+  baseURL = environment.apiUrl;
 
   constructor(private http: HttpClient) {
 

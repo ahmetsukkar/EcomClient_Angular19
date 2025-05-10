@@ -86,12 +86,15 @@ export class CheckoutPaymentComponent implements AfterViewInit {
     this.loading = true;
     const basket = this.basketService.getCurrentBasketValue();
 
+    if(!basket) throw new Error('This Basket not found!');
+
+
     try {
       const createOrder = await this.createOrder(basket);
       const paymentResult = await this.confirmPaymentWithStripe(basket);
 
       if (paymentResult.paymentIntent) {
-        this.basketService.deleteLocalBasket(basket.id);
+        this.basketService.deleteBasket(basket);
         const navigationExtras: NavigationExtras = { state: createOrder };
         this.router.navigate(['checkout/success'], navigationExtras);
       }
@@ -104,6 +107,34 @@ export class CheckoutPaymentComponent implements AfterViewInit {
       console.log('Error:', error);
       this.loading = false;
     }
+
+    // this.checkoutService.CreateOrder(orderToCreate).subscribe({
+    //   next: (order: IOrder) => {
+    //     //this.toastr.success('Order created successfully!');
+    //     this.stripe.confirmCardPayment(basket.clientSecret, {
+    //       payment_method: {
+    //         card: this.cardNumber,
+    //         billing_details: {
+    //           name: this.checkoutForm.get('paymentForm.nameOnCard').value
+    //         }
+    //       }
+    //     }).then((result) => {
+    //       console.log('Strip Pyment Result: ', result);
+    //       if (result.paymentIntent) {
+    //         this.basketService.deleteLocalBasket(basket.id);
+    //         const navigationExtras: NavigationExtras = { state: order };
+    //         this.router.navigate(['checkout/success'], navigationExtras);
+    //       }
+    //       else {
+    //         this.toastr.error('Payment Error: ' + result.error.message);
+    //       }
+    //     })
+
+    //   }
+    //   , error: (error) => {
+    //     this.toastr.error('Error creating order!', error);
+    //   }
+    // });
 
   }
   private async confirmPaymentWithStripe(basket: IBasket) {
